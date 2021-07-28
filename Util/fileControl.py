@@ -13,6 +13,8 @@ Copyright (C) 2021 CVTE
 """
 import datetime
 
+import AutoUpdateDMPApk
+
 
 def getNewestApkName():
     today = datetime.date.today()
@@ -22,6 +24,15 @@ def getNewestApkName():
 
 def getNewestApkPath(apkBasePath):
     return apkBasePath + getNewestApkName()
+
+
+def getOutputJsonPath():
+    return AutoUpdateDMPApk.outputJsonPath
+
+
+def setOutputJsonPath(apkBasePath):
+    print("setOutputJsonPath:apkBasePath = "+apkBasePath)
+    AutoUpdateDMPApk.outputJsonPath = apkBasePath + "output.json"
 
 
 def getBackupApkName():

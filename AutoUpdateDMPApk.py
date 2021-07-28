@@ -21,8 +21,12 @@ from PyQt5.QtCore import QThread, pyqtSignal, QTimer
 from Common import filesManager
 from PyQt5.QtWidgets import QMainWindow
 
+from Util.fileControl import getOutputJsonPath
+from Util.jsonControl import resolveVersionCodeFromApkOutputJson
+
 isPathCheckOk = False
 apkPath = ""
+outputJsonPath = ""
 targetPath = "/system_ext/priv-app/DigitalMediaPlayer/DigitalMediaPlayer.apk"
 
 backupApkFilePath = ""
@@ -48,7 +52,9 @@ class Worker(QMainWindow, QtUi.Ui_Dialog):
         timer.start(mSec)
 
     def do_work(self):
+        apkVersionCode = resolveVersionCodeFromApkOutputJson(getOutputJsonPath())
         self.printf("self.isContinueRun =" + str(self.isContinueRun))
+        print("apkOutputJsonFilePath ="+getOutputJsonPath())
         count = 1
         self.isContinueRun = True
 
@@ -59,39 +65,53 @@ class Worker(QMainWindow, QtUi.Ui_Dialog):
         while self.isContinueRun:  # give the loop a stoppable condition
             time.sleep(0.1)
             self.printf("Check DMP APK ......")
+            if filesManager.isFileExit(getOutputJsonPath()):
+                self.printf("Output.json is exist! start to check version code!")
+                tmpVersionCode = resolveVersionCodeFromApkOutputJson(getOutputJsonPath())
+                if tmpVersionCode != apkVersionCode:
+                    self.printf("apkVersionCode isn't same! Start to check apk file.")
+                else:
+                    self.printf("apkVersionCode is same! Continue.")
+                    continue
+            else:
+                self.printf("Output.json isn't exist! Continue.")
+                continue
+
             if filesManager.isFileExit(backupApkFilePath):
                 if not filesManager.cmpFile(apkPath, backupApkFilePath):
                     self.printf("DMP Apk isn't same! Start to copy file.")
                     self.printf("apkPath is " + apkPath)
                     self.printf("backupApkFilePath is " + backupApkFilePath)
                     filesManager.copyFile(apkPath, backupApkFilePath)
-                    self.isContinueRun = False
+                    # self.isContinueRun = False
                     time.sleep(3)
                 else:
                     self.printf("DMP Apk is same! contiue!")
                     continue
 
-                # if not self.sendAdbDevicesMsg():
-                #     self.printf("send 'adb devices' return fail! contiue")
-                #     continue
-                # if not self.sendAdbRootMsg():
-                #     self.printf("send 'adb root' return fail! contiue")
-                #     continue
-                # if not self.sendAdbRemountMsg():
-                #     self.printf("send 'adb remount' return fail! contiue")
-                #     continue
-                #
-                # if self.sendAdbPushMsg():
-                #     self.printf("start  sendAdbSyncAndRebootMsg")
-                #     self.sendAdbSyncAndRebootMsg()
-                #     time.sleep(3)
-                #     count = count - 1
-                #     # self.showSuccessDialg("Info", "更新成功！")
-                #     continue
-                # else:
-                #     self.printf("send 'adb push' return fail! contiue")
-                #     # self.showSuccessDialg("Info", "更新失败！")
-                #     continue
+                if not self.sendAdbDevicesMsg():
+                    self.printf("send 'adb devices' return fail! contiue")
+                    continue
+                if not self.sendAdbRootMsg():
+                    self.printf("send 'adb root' return fail! contiue")
+                    continue
+                if not self.sendAdbRemountMsg():
+                    self.printf("send 'adb remount' return fail! contiue")
+                    continue
+
+                if self.sendAdbPushMsg():
+                    self.printf("start  sendAdbSyncAndRebootMsg")
+                    time.sleep(3)
+                    self.sendAdbSyncAndRebootMsg()
+                    count = count - 1
+                    apkVersionCode = resolveVersionCodeFromApkOutputJson(getOutputJsonPath())
+                    self.printf("update Version Code....")
+                    self.showSuccessDialg("Info", "更新成功！")
+                    continue
+                else:
+                    self.printf("send 'adb push' return fail! contiue")
+                    self.showSuccessDialg("Info", "更新失败！")
+                    continue
 
             else:
                 self.printf("DMP Apk is same!!")
@@ -181,6 +201,8 @@ class Worker(QMainWindow, QtUi.Ui_Dialog):
 
     def sendAdbSyncAndRebootMsg(self):
         self.printf("adb shell sync && adb shell reboot")
+        os.popen("adb shell sync")
+        os.popen("adb shell sync")
         os.popen("adb shell sync")
         os.popen("adb shell sync")
         os.popen("adb shell reboot")

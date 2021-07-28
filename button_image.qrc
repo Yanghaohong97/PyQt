@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="&lt;no prefix>">
+    <file>res/mmp_logo.png</file>
+  </qresource>
+</RCC>

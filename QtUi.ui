@@ -11,7 +11,15 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>DMP自动部署</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="button_image.qrc">
+    <normaloff>:/&lt;no prefix&gt;/res/mmp_logo.png</normaloff>:/&lt;no prefix&gt;/res/mmp_logo.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">border-top-color:rgb(0, 0, 127);
+background-color: rgb(207, 207, 207);</string>
   </property>
   <widget class="QTextBrowser" name="printTextBrowser">
    <property name="geometry">
@@ -25,6 +33,12 @@
    <property name="tabletTracking">
     <bool>false</bool>
    </property>
+   <property name="styleSheet">
+    <string notr="true">color:rgb(0, 0, 0);
+background-color:rgb(235, 235, 235);
+font: 9pt &quot;Calibri&quot;;
+</string>
+   </property>
   </widget>
   <widget class="QLineEdit" name="sourcePathLineEdit">
    <property name="geometry">
@@ -34,6 +48,10 @@
      <width>511</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(235, 235, 235);
+font: 9pt &quot;Calibri&quot;;</string>
    </property>
    <property name="text">
     <string>D:\WorkSpace\Android TV\cvt_app\multi_media_player\app\build\outputs\apk\umc\release\</string>
@@ -48,6 +66,12 @@
      <height>51</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">color:rgb(255, 255, 255);
+background-color:qlineargradient(spread:repeat, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(82, 99, 255, 255), stop:0.551136 rgba(102, 61, 235, 255), stop:1 rgba(153, 154, 154, 255));
+font: 14pt &quot;Calibri&quot;;
+</string>
+   </property>
    <property name="text">
     <string>Check</string>
    </property>
@@ -61,6 +85,13 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">color:rgb(255, 255, 255);
+background-color:qlineargradient(spread:repeat, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(82, 99, 255, 255), stop:0.551136 rgba(102, 61, 235, 255), stop:1 rgba(153, 154, 154, 255));
+font: 10pt &quot;Calibri&quot;;
+font: 14pt &quot;Calibri&quot;;
+</string>
+   </property>
    <property name="text">
     <string>Start</string>
    </property>
@@ -73,9 +104,15 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>81</width>
-     <height>20</height>
+     <width>91</width>
+     <height>21</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color:rgb(255, 255, 255);
+background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(82, 99, 255, 255), stop:0.551136 rgba(102, 61, 235, 255), stop:0.977273 rgba(92, 102, 101, 255), stop:1 rgba(0, 0, 0, 0));
+font: 10pt &quot;Calibri&quot;;
+</string>
    </property>
    <property name="text">
     <string>ApkSourcePath:</string>
@@ -86,9 +123,14 @@
     <rect>
      <x>10</x>
      <y>40</y>
-     <width>81</width>
+     <width>91</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color:rgb(255, 255, 255);
+background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(82, 99, 255, 255), stop:0.551136 rgba(102, 61, 235, 255), stop:0.977273 rgba(92, 102, 101, 255), stop:1 rgba(0, 0, 0, 0));
+font: 10pt &quot;Calibri&quot;;</string>
    </property>
    <property name="text">
     <string>ApkBackupPath:</string>
@@ -103,6 +145,10 @@
      <height>21</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(235, 235, 235);
+font: 10pt &quot;Calibri&quot;;</string>
+   </property>
    <property name="text">
     <string>D:\</string>
    </property>
@@ -116,11 +162,19 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">color:rgb(255, 255, 255);
+background-color:qlineargradient(spread:repeat, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(82, 99, 255, 255), stop:0.551136 rgba(102, 61, 235, 255), stop:1 rgba(153, 154, 154, 255));
+font: 14pt &quot;Calibri&quot;;
+</string>
+   </property>
    <property name="text">
     <string>Stop</string>
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="button_image.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -23,7 +23,7 @@ import Util
 from PyQt5.QtCore import QThread, pyqtSignal
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from Common import filesManager
-from Util.fileControl import getNewestApkName
+from Util.fileControl import getNewestApkName, getOutputJsonPath, setOutputJsonPath
 
 
 def showWindow():
@@ -104,6 +104,7 @@ class MyMainForm(QMainWindow, QtUi.Ui_Dialog):
             sourceApkPath = self.sourcePathLineEdit.text()
             self.printf(str(len(sourceApkPath)))
             sourceApkPath = checkAndAddBackslashToPath(sourceApkPath)
+            setOutputJsonPath(sourceApkPath)
             self.printf(str(len(sourceApkPath)))
             print(getNewestApkName())
             sourceApkPath = sourceApkPath + Util.fileControl.getNewestApkName()
