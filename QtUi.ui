@@ -54,7 +54,7 @@ font: 9pt &quot;Calibri&quot;;
 font: 9pt &quot;Calibri&quot;;</string>
    </property>
    <property name="text">
-    <string>D:\WorkSpace\Android TV\cvt_app\multi_media_player\app\build\outputs\apk\umc\release\</string>
+    <string>D:\WorkSpace\Android_TV\cvt_app\multi_media_player_30\app\build\outputs\apk\haier\release\</string>
    </property>
   </widget>
   <widget class="QPushButton" name="checkPushButton">

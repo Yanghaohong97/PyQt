@@ -114,24 +114,18 @@ class MyMainForm(QMainWindow, QtUi.Ui_Dialog):
                 AutoUpdateDMPApk.apkPath = sourceApkPath
                 self.printf(sourceApkPath + " is exist.")
             else:
-                self.printf("ApkSourcePath isn't exist.Please enter ApkSourcePath again! For "
-                            "example, D:\\WorkSpace\\Android "
-                            "TV\\cvt_app\\multi_media_player\\app\\build\outputs\\apk\\umc\\release"
-                            "\\")
+                self.printf("ApkSourcePath isn't exist.Please enter ApkSourcePath again! For example, D:\\WorkSpace\\Android_TV\\cvt_app\\multi_media_player_30\\app\\build\\outputs\\apk\haier\\release\\")
         else:
-            self.printf("ApkSourcePath is empty! Please enter ApkSourcePath! For "
-                        "example, D:\\WorkSpace\\Android "
-                        "TV\\cvt_app\\multi_media_player\\app\\build\outputs\\apk\\umc\\release"
-                        "\\")
+            self.printf("ApkSourcePath is empty! Please enter ApkSourcePath! For example, D:\\WorkSpace\\Android_TV\\cvt_app\\multi_media_player_30\\app\\build\\outputs\\apk\haier\\release\\")
 
         if self.backupPathLineEdit.text():
             self.printf("ApkBackupPath:" + self.backupPathLineEdit.text())
             backupApkPath = self.backupPathLineEdit.text()
             backupApkPath = checkAndAddBackslashToPath(backupApkPath)
-            backupApkPath = backupApkPath + Util.fileControl.getBackupApkName()
             self.printf("ApkSourcePath:" + backupApkPath)
             if filesManager.isFileExit(backupApkPath):
                 isBackupApkExist = True
+                backupApkPath = backupApkPath + Util.fileControl.getBackupApkName()
                 AutoUpdateDMPApk.backupApkFilePath = backupApkPath
                 self.printf(backupApkPath + " is exist.")
             else:

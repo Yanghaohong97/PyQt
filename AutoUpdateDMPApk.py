@@ -54,8 +54,8 @@ class Worker(QMainWindow, QtUi.Ui_Dialog):
     def do_work(self):
         apkVersionCode = resolveVersionCodeFromApkOutputJson(getOutputJsonPath())
         self.printf("self.isContinueRun =" + str(self.isContinueRun))
-        print("apkOutputJsonFilePath ="+getOutputJsonPath())
-        count = 1
+        print("apkOutputJsonFilePath =" + getOutputJsonPath())
+        count = 0
         self.isContinueRun = True
 
         if not filesManager.isFileExit(backupApkFilePath):
@@ -64,14 +64,17 @@ class Worker(QMainWindow, QtUi.Ui_Dialog):
         # while self.isContinueRun and count:  # give the loop a stoppable condition
         while self.isContinueRun:  # give the loop a stoppable condition
             time.sleep(0.1)
-            self.printf("Check DMP APK ......")
+            count = count + 1
+            if count % 20 == 1:
+                self.printf("Check DMP APK ......")
+
             if filesManager.isFileExit(getOutputJsonPath()):
-                self.printf("Output.json is exist! start to check version code!")
+                # self.printf("Output.json is exist! start to check version code!")
                 tmpVersionCode = resolveVersionCodeFromApkOutputJson(getOutputJsonPath())
                 if tmpVersionCode != apkVersionCode:
                     self.printf("apkVersionCode isn't same! Start to check apk file.")
                 else:
-                    self.printf("apkVersionCode is same! Continue.")
+                    # self.printf("apkVersionCode is same! Continue.")
                     continue
             else:
                 self.printf("Output.json isn't exist! Continue.")
@@ -86,17 +89,23 @@ class Worker(QMainWindow, QtUi.Ui_Dialog):
                     # self.isContinueRun = False
                     time.sleep(3)
                 else:
-                    self.printf("DMP Apk is same! contiue!")
+                    # self.printf("DMP Apk is same! contiue!")
                     continue
 
                 if not self.sendAdbDevicesMsg():
                     self.printf("send 'adb devices' return fail! contiue")
+                    self.isContinueRun = False
+                    self.showSuccessDialg("Info", "ADB设备不存在或存在多个ADB设备. 更新失败！\n请检查后重新点击Start开始。")
                     continue
                 if not self.sendAdbRootMsg():
                     self.printf("send 'adb root' return fail! contiue")
+                    self.isContinueRun = False
+                    self.showSuccessDialg("Info", "'adb root'执行失败\n请检查后重新点击Start开始。")
                     continue
                 if not self.sendAdbRemountMsg():
                     self.printf("send 'adb remount' return fail! contiue")
+                    self.isContinueRun = False
+                    self.showSuccessDialg("Info", "'adb remount'执行失败！\n请检查是否已经关闭avbab,然后重新点击Start开始。")
                     continue
 
                 if self.sendAdbPushMsg():
@@ -110,7 +119,7 @@ class Worker(QMainWindow, QtUi.Ui_Dialog):
                     continue
                 else:
                     self.printf("send 'adb push' return fail! contiue")
-                    self.showSuccessDialg("Info", "更新失败！")
+                    self.showSuccessDialg("Info", "更新失败！\nsend 'adb push' return fail!\n请检查，重新点击Start开始！")
                     continue
 
             else:
@@ -164,11 +173,13 @@ class Worker(QMainWindow, QtUi.Ui_Dialog):
     def sendAdbRootMsg(self):
         self.printf("adb root")
         retAdbRootFile = os.popen("adb root")
-        result = False
+        result = True
         for line in retAdbRootFile.readlines():
             self.printf(line)
             if "restarting adbd as root" in line or "adbd is already running as root" in line:
                 result = True
+            elif "unable to connect for root" in line:
+                result = False
 
         return result
 

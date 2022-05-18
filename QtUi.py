@@ -81,7 +81,7 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "DMP自动部署"))
-        self.sourcePathLineEdit.setText(_translate("Dialog", "D:\\WorkSpace\\Android TV\\cvt_app\\multi_media_player\\app\\build\\outputs\\apk\\umc\\release\\"))
+        self.sourcePathLineEdit.setText(_translate("Dialog", "D:\\WorkSpace\\Android_TV\\cvt_app\\multi_media_player_30\\app\\build\\outputs\\apk\\haier\\release\\"))
         self.checkPushButton.setText(_translate("Dialog", "Check"))
         self.startPushButton.setText(_translate("Dialog", "Start"))
         self.label.setText(_translate("Dialog", "ApkSourcePath:"))

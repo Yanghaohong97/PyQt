@@ -6,7 +6,7 @@ Copyright (C) 2021 CVTE
 @ 文件功能描述：
 @ 创建日期：2021年7月6日
 @ 创建人：Yanghaohong
-@ 修改标识：2021年7月6日
+@ 修改标识：2021年7月6日--con
 @ 修改描述：
 @ 修改日期：
 @ 修改版本：V1.0.0
@@ -25,7 +25,7 @@ def resolveVersionCodeFromApkOutputJson(apkOutputJsonFile):
     jsonFile = json.load(file)
 
     # Resolve File
-    apkInfo = jsonFile[0]["apkInfo"]
+    apkInfo = jsonFile[0]["apkData"]
     # print(apkInfo)
     apkInfo_versionCode = apkInfo["versionCode"]
     # print(type(apkInfo_versionCode))
